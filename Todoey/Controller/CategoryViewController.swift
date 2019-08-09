@@ -53,7 +53,7 @@ class CategoryViewController: UITableViewController {
             newCategory.name = textField.text!
             
             self.categoryArray.append(newCategory)
-            self.saveCategories()()
+            self.saveCategories()
             
         }
         
@@ -68,14 +68,15 @@ class CategoryViewController: UITableViewController {
     // Mark : - TableView Delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //        context.delete(itemArray[indexPath.row])
-        //        itemArray.remove(at: indexPath.row)
-//        itemArray[indexPath.row].done.toggle()
-//
-//        saveItems()
+      performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
         
-        tableView.deselectRow(at: indexPath, animated: true)
-        
+        if let indexPath = tableView.indexPathForSelectedRow {
+               destinationVC.selectedCategory = categoryArray[indexPath.row]
+        }
     }
     
     // Mark : - Data Manipulation methods
